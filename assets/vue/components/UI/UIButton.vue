@@ -6,8 +6,12 @@
 		:value="buttonValue"
 		class="leighton-quito-button"
 		:class="setButtonClass"
+		:aria-busy="buttonLoading"
 		@click="buttonClick">
 		<UIIcon v-if="hasButtonIcon" :name="buttonIcon" />
+		<span v-if="buttonLoading" class="leighton-quito-button__loader" aria-hidden="true">
+			<UIIcon name="update" />
+		</span>
 		<span :class="setLabelClass" role="none">
 			<slot />
 		</span>
@@ -89,7 +93,7 @@ export default {
 			}
 
 			if (this.buttonLoading) {
-				setClass += ' loading';
+				setClass += ' leighton-quito-button--loading';
 			}
 
 			return setClass;

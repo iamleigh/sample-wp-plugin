@@ -19,18 +19,19 @@ export const actions = {
 
 		commit("SAVING_SETTINGS");
 
-		axios
-			.post(url, {
+		try {
+			const res = await axios.post(url, {
 				tablerows: payload.tablerows,
 				timestamp: payload.timestamp,
 				emails: payload.emails,
-			})
-			.then(() => {
-				commit("SAVED_SETTINGS");
-			})
-			.catch((err) => {
-				console.log(err);
 			});
+
+			commit("SAVED_SETTINGS");
+			return res;
+		} catch(err) {
+			console.log(err);
+			throw err;
+		}
 	},
 
 	FETCH_SETTINGS: async ({ commit }, payload) => {

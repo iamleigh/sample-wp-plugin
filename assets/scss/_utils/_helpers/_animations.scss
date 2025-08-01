@@ -11,6 +11,7 @@
 /// 5. Slide Out
 /// 6. Fade In
 /// 7. Fade Out
+/// 8. Spin
 ///
 /// @author Leighton Quito (iamleigh.com)
 /// -----------------------------------------------------------------------------
@@ -143,5 +144,15 @@
 
 	100% {
 		transform: translate(0, 0);
+	}
+}
+
+// 9. Spin
+@keyframes Spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
 	}
 }

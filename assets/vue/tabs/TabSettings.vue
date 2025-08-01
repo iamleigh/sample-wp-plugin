@@ -55,9 +55,17 @@
 				type="submit"
 				buttonDesign="primary"
 				:buttonLoading="isSaving"
-				:disabled="isSaving">
+				:disabled="isSaving || showSuccess">
 				{{ msgData.buttonSave }}
 			</UIButton>
+
+			<span
+				v-if="showSuccess"
+				role="status"
+				aria-live="polite"
+				aria-atomic="true">
+				Changes were saved correctly
+			</span>
 
 		</form>
 	</Content>
@@ -89,7 +97,9 @@ export default {
 		EmailNew
 	},
 	data () {
-		return {}
+		return {
+			showSuccess: false
+		}
 	},
 	mounted () {
 		this.fetchMessages(),
@@ -133,9 +143,19 @@ export default {
 		fetchSettings: function () {
 			this.FETCH_SETTINGS();
 		},
-		saveSettings: function (e) {
-			this.SAVE_SETTINGS( this.formData );
+		saveSettings: async function (e) {
 			e.preventDefault();
+
+			try {
+				await this.SAVE_SETTINGS( this.formData );
+				this.showSuccess = true;
+
+				setTimeout(() => {
+					this.showSuccess = false;
+				}, 1500);
+			} catch ( error ) {
+				console.log("Save failed:", error);
+			}
 		},
 		scrollToBottom: function () {
 			this.$refs.taskList.scrollToBottom();
