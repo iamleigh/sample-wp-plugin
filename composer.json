@@ -8,12 +8,12 @@
     }
   ],
   "require": {
-    "composer/installers": "~1.0",
+    "composer/installers": "^2.0",
     "dealerdirect/phpcodesniffer-composer-installer": "^1.0"
   },
   "require-dev": {
-    "wp-coding-standards/wpcs": "dev-master",
-    "phpunit/phpunit": "<8.0"
+    "wp-coding-standards/wpcs": "dev-main",
+    "phpunit/phpunit": "<9.0"
   },
   "autoload": {
     "psr-4": {
@@ -23,7 +23,8 @@
   },
   "config": {
     "allow-plugins": {
-      "dealerdirect/phpcodesniffer-composer-installer": true
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "composer/installers": true
     }
   }
 }
