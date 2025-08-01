@@ -2,11 +2,11 @@
 	<UISection :title="setBlockTitle">
 		<DataBlock>
 			<UITable
-				v-if="('table' === type && 'undefined' !== typeof getData.table)"
+				v-if="(type === 'table' && getData.table && getData.table.data && getData.table.data.rows)"
 				:unix="formData.timestamp"
 				:limit="formData.tablerows"
 				:headers="getData.table.data.headers"
-				:rows="getData.table.data.rows" />
+				:rows="normalizedRows" />
 
 			<UIChart
 				v-else-if="('chart' === type && 'undefined' !== typeof getData.graph)"
@@ -84,6 +84,10 @@ export default {
 			}
 
 			return '';
+		},
+		normalizedRows: function () {
+			const rows = this.getData?.table?.data?.rows;
+			return Array.isArray(rows) ? rows : Object.values(rows || {});
 		}
 	},
 	methods: {
